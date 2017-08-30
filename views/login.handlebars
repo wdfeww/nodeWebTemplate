@@ -1,0 +1,15 @@
+<h2 class="page-header">Account Login</h2>
+<form action="/users/login" method="post">
+    <!-- csrf Token -->
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    <!-- csrf Token -->
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input name="username" type="text" class="form-control" placeholder="Username">
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input name="password" type="password" class="form-control" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>

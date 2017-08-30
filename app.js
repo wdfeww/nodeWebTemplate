@@ -1,72 +1,44 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+let express = require('express');
+const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
+// Init App
+const app = express();
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+require('./configurators/body')(app);
+require('./configurators/mongo')(app);
+require('./configurators/handlebars')(app);
+require('./configurators/validation')(app);
+require('./configurators/session')(app);
+require('./configurators/passport')(app);
+require('./configurators/csrf')(app);
 
-var app = express();
+const routes = require('./routes/index');
+const users = require('./routes/users');
 
-require('dotenv').config();
+// Set Static Folder
+app.use(express.static('public'));
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+// Cookie Parser
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+// Connect Flash
+app.use(flash());
+
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    res.locals.isAuthenticated = req.isAuthenticated();
+    res.locals.user = req.user || null;
+    next();
+});
+
+app.use('/', routes);
 app.use('/users', users);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+// Set Port
+app.set('port', (process.env.PORT || 3000));
+
+app.listen(app.get('port'), () => {
+    console.log('Server started on port '+app.get('port'));
 });
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-
-// Handlebars default config
-const hbs = require('hbs');
-const fs = require('fs');
-
-const partialsDir = __dirname + '/views/partials';
-
-const filenames = fs.readdirSync(partialsDir);
-
-filenames.forEach(function (filename) {
-  const matches = /^([^.]+).hbs$/.exec(filename);
-  if (!matches) {
-    return;
-  }
-  const name = matches[1];
-  const template = fs.readFileSync(partialsDir + '/' + filename, 'utf8');
-  hbs.registerPartial(name, template);
-});
-
-hbs.registerHelper('json', function(context) {
-    return JSON.stringify(context, null, 2);
-});
-
-
-module.exports = app;
