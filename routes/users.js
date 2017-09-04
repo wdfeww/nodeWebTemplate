@@ -151,36 +151,28 @@ router.post('/edit', (req, res) => {
 
 // Change Avatar
 router.post('/edit/avatar', upload.any(), (req, res) => {
-    let path = req.files[0].path;
-    let imageName = req.files[0].filename;
+    if (req.files[0]) {
+        let path = req.files[0].path;
+        let imageName = req.files[0].filename;
 
-    console.log('path: '+path);
-    console.log('imageName: '+imageName);
+        console.log('path: '+path);
+        console.log('imageName: '+imageName);
 
-    let user = req.user;
-    user.avatar.path = '\\avatars\\'+imageName;
-    user.avatar.originalname = imageName;
+        let user = req.user;
+        user.avatar.path = '\\avatars\\'+imageName;
+        user.avatar.originalname = imageName;
 
-    User.createUser(user, (err, user) => {
-        if (err) throw err;
-        console.log(user);
-        req.flash('success_msg', 'Your profile picture was changed.');
-        res.redirect('/');
-    });
+        User.createUser(user, (err, user) => {
+            if (err) throw err;
+            console.log(user);
+            req.flash('success_msg', 'Your profile picture was changed.');
+            res.redirect('/');
+        });
+    } else {
+        let errorMsg = [{msg: 'Only image files jpg/jpeg/png/gif are allowed'}];
+        res.render('profile-edit', {errors: errorMsg});
+    }
 
-});
-
-// // Change Avatar
-// router.post('/edit/avatar', upload.any(), (req, res) => {
-//
-//         res.redirect('/');
-//
-// });
-
-// Get Image
-router.get('/avatar', (req, res) => {
-    res.contentType(req.user.avatar_img.contentType);
-    res.send(req.user.avatar_img.data);
 });
 
 module.exports = router;
