@@ -30,7 +30,17 @@ module.exports = app => {
                         }
                     });
                 });
+            },
+            notEquals(string, string2) {
+                return new Promise((resolve, reject) => {
+                    if (string === string2) {
+                        reject();
+                    } else {
+                        resolve();
+                    }
+                });
             }
+
         }
     }));
 };

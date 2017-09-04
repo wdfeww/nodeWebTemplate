@@ -18,7 +18,7 @@ let upload = multer({
 });
 
 // Upload Image
-router.post('/image', upload.any(), (req, res, next) => {
+router.post('/image', upload.any(), (req, res) => {
     // res.send(req.files);
 
     let path = req.files[0].path;

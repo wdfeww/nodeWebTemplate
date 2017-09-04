@@ -3,8 +3,17 @@ let router = express.Router();
 let passport = require('passport');
 let LocalStrategy = require('passport-local').Strategy;
 let session = require('express-session');
+let multer = require('multer');
 
 let User = require('../models/User');
+
+const multerConf = require('../configurators/multer');
+
+let upload = multer({
+    storage: multerConf.storageUploads,
+    fileFilter: multerConf.imageFilter
+});
+
 
 // Login Page
 router.get('/login', (req, res) => {
@@ -108,6 +117,7 @@ router.post('/edit', (req, res) => {
 
     // Validation
     req.checkBody('oldPassword', 'Enter your old password').notEmpty();
+    req.checkBody('password', 'Your new password can not be your old one').notEquals(req.body.oldPassword, req.body.password);
     req.checkBody('password', 'Password is required').notEmpty();
     req.checkBody('password', 'Must contains only ascii symbols').isAscii();
     req.checkBody('rePassword', 'Password do not match!').equals(req.body.password);
@@ -139,7 +149,33 @@ router.post('/edit', (req, res) => {
     });
 });
 
+// Change Avatar
+router.post('/edit/avatar', upload.any(), (req, res) => {
+    let path = req.files[0].path;
+    let imageName = req.files[0].originalname;
 
+    console.log('path: '+path);
+    console.log('imageName: '+imageName);
+
+    let user = req.user;
+    user.avatar.path = '\\'+imageName;
+    user.avatar.originalname = imageName;
+
+    User.createUser(user, (err, user) => {
+        if (err) throw err;
+        console.log(user);
+        req.flash('success_msg', 'Your profile picture was changed.');
+        res.redirect('/');
+    });
+
+});
+
+// // Change Avatar
+// router.post('/edit/avatar', upload.any(), (req, res) => {
+//
+//         res.redirect('/');
+//
+// });
 
 // Get Image
 router.get('/avatar', (req, res) => {

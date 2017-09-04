@@ -34,7 +34,7 @@ UserSchema.plugin(passportLocalMongoose);
 // User Model
 let User = module.exports = mongoose.model('User', UserSchema);
 
-// New User
+// New/Update User
 module.exports.createUser = (newUser, callback) => {
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
