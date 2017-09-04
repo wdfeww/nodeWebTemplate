@@ -29,7 +29,7 @@ router.get('/edit', (req, res) => {
     res.render('profile-edit');
 });
 
-// Register User /Post
+// Register User
 router.post('/register', (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
@@ -58,7 +58,6 @@ router.post('/register', (req, res) => {
             });
 
             req.flash('success_msg', 'You are registered and can now login.');
-
             res.redirect('/users/login')
         }
     });
@@ -113,7 +112,6 @@ router.get('/logout', (req, res) => {
 router.post('/edit', (req, res) => {
     let oldPassword = req.body.oldPassword;
     let password = req.body.password;
-    let rePassword = req.body.rePassword;
 
     // Validation
     req.checkBody('oldPassword', 'Enter your old password').notEmpty();
@@ -169,7 +167,7 @@ router.post('/edit/avatar', upload.any(), (req, res) => {
             res.redirect('/');
         });
     } else {
-        let errorMsg = [{msg: 'Only .jpg/.jpeg/.png/.gif images are allowed'}];
+        let errorMsg = [{msg: 'Only .jpg/.jpeg/.png/.gif files are allowed'}];
         res.render('profile-edit', {errors: errorMsg});
     }
 });
