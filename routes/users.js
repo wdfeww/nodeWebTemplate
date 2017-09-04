@@ -169,10 +169,9 @@ router.post('/edit/avatar', upload.any(), (req, res) => {
             res.redirect('/');
         });
     } else {
-        let errorMsg = [{msg: 'Only image files jpg/jpeg/png/gif are allowed'}];
+        let errorMsg = [{msg: 'Only .jpg/.jpeg/.png/.gif images are allowed'}];
         res.render('profile-edit', {errors: errorMsg});
     }
-
 });
 
 module.exports = router;
