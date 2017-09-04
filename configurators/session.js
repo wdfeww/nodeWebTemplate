@@ -8,7 +8,7 @@ module.exports = app => {
 
     const sessionConfiguration = {
         secret: 'secret',
-        saveUninitialized: true,
+        saveUninitialized: false,
         resave: true,
         store: new MongoStore({
             mongooseConnection: mongoose.connection

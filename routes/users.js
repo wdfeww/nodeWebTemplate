@@ -92,11 +92,12 @@ router.post('/login',
 
 // Logout User
 router.get('/logout', (req, res) => {
-   req.logout();
+    req.logout();
 
-   req.flash('success_msg', 'You are logged out');
+    req.flash('success_msg', 'You are logged out');
+    req.session.destroy();
 
-   res.redirect('/users/login');
+    res.redirect('/users/login');
 });
 
 // Change Password

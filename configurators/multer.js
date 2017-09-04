@@ -15,6 +15,7 @@ module.exports.storageUploads = multer.diskStorage({
 // Clear Folder Uploads after Server Restart
 module.exports.cleanFolder = (folderPath) => {
     del.sync([`${folderPath}/**`, `!${folderPath}`]);
+    console.log('Cleaning folder '+folderPath+'...');
 };
 
 // File Filter

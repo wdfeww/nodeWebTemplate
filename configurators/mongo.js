@@ -7,6 +7,7 @@ module.exports = app => {
     let usersJson = require('../imports/import-users.json');
     let avatarPath = '../Haliganda/imports/files/avatar_default.png';
     let User = require('../models/User');
+    let Image = require('../models/Image');
 
     mongoose.Promise = global.Promise;
     mongoose.connect('mongodb://localhost/haliganda', {
@@ -41,6 +42,10 @@ module.exports = app => {
             // });
 
         });
+        Image.remove((err) => {
+            if (err) throw err;
+            else console.log('Collection files was removed...')
+        })
 
     });
 
