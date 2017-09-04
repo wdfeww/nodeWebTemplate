@@ -1,0 +1,40 @@
+<h2 class="page-header">Edit Profile</h2>
+{{#if errors}}
+    {{#each errors}}
+        <div class="alert alert-danger">
+            {{msg}}
+        </div>
+    {{/each}}
+{{/if}}
+<div class="div-edit-profile container">
+    <h3 class="">Change Password</h3>
+    <form action="/users/edit" method="post">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+        <div class="form-group">
+            <label for="username">Old Password</label>
+            <input name="oldPassword" type="password" class="form-control" placeholder="Old Password">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input name="password" type="password" class="form-control" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="rePassword">Re-Password</label>
+            <input name="rePassword" type="password" class="form-control" placeholder="Re-Password">
+        </div>
+        <button type="submit" class="btn btn-default">Change Password</button>
+    </form>
+</div>
+<div class="div-edit-profile container">
+    <h3 class="">Change Avatar Picture</h3>
+    <form action="/image" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+        <!--<label for="avatar">Change Avatar</label>-->
+        <label for="file-upload" class="custom-file-upload btn btn-default">
+            <i class="fa fa-cloud-upload"></i> Choose Image
+        </label>
+        <input id="file-upload" type="file"/>
+        <button type="submit" class="btn btn-default">Change Avatar</button>
+    </form>
+</div>

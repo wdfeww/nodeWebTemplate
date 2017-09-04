@@ -7,9 +7,8 @@
     {{/each}}
 {{/if}}
 <form action="/users/register" method="post">
-    <!-- csrf Token -->
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
-    <!-- csrf Token -->
+
     <div class="form-group">
         <label for="username">Username</label>
         <input name="username" type="text" class="form-control" placeholder="Username">

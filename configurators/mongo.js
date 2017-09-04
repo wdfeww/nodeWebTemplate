@@ -1,9 +1,12 @@
-// MongoDB connection
+// MongoDB connection, imports
 module.exports = app => {
-    var json = require('../import-users.json');
-
+    const fs = require('fs');
     const mongoose = require('mongoose');
     const db = mongoose.connection;
+
+    let usersJson = require('../imports/import-users.json');
+    let avatarPath = '../Haliganda/imports/files/avatar_default.png';
+    let User = require('../models/User');
 
     mongoose.Promise = global.Promise;
     mongoose.connect('mongodb://localhost/haliganda', {
@@ -18,9 +21,29 @@ module.exports = app => {
     });
 
     // Inserting default admin into Database
-    db.collection('users').insert(json, (err, doc) => {
-        if (err) console.log(err.message);
-        else
-            console.log('Default admin was inserted into users collection...');
+    mongoose.connection.on('open', () => {
+        User.remove((err) => {
+            if (err) throw err;
+            else console.log('Collection users was removed...');
+
+            db.collection('users').insert(usersJson, (err, doc) => {
+                if (err) console.log(err.message);
+                else console.log('Added collection users with default admin...');
+            });
+
+            // User.findOne({username: 'admin'}, (err, admin) => {
+            //     if (err) throw err;
+            //     admin.avatar_img.data = fs.readFileSync(avatarPath);
+            //     admin.avatar_img.contentType = 'image/png';
+            //     admin.save((err, admin) => {
+            //         if (err) throw err;
+            //     });
+            // });
+
+        });
+
     });
-}
+
+
+};
+

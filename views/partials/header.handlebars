@@ -5,17 +5,19 @@
                 <li role="presentation"><a href="/">News</a></li>
                 <li role="presentation">
                     <div class="dropdown">
-                        <a class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Logged in as: {{user.username}}
+                        <a class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                            <img src="{{user.avatar.path}}" class="img-avatar">
+                            Logged in as: {{user.username}}
                         </a>
                         <ul class="dropdown-menu">
-                            <!--<li><a href="">Change Password</a></li>-->
+                            <li><a href="/users/edit">Edit Profile</a></li>
                             <li><a href="/users/logout">Logout</a></li>
                         </ul>
                     </div>
                 </li>
             {{else}}
                 <li role="presentation"><a href="/users/login">Login</a></li>
-                <!--<li role="presentation"><a href="/users/register">Register</a></li>-->
+                <li role="presentation"><a href="/users/register">Register</a></li>
             {{/if}}
         </ul>
     </nav>

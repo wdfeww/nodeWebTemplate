@@ -1,5 +1,6 @@
 let mongoose = require('mongoose');
 let bcrypt = require('bcryptjs');
+let passportLocalMongoose = require('passport-local-mongoose');
 
 // User Schema
 let UserSchema = mongoose.Schema({
@@ -14,8 +15,21 @@ let UserSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    avatar: {
+        path: {
+            default: '/images/avatars/avatar_default.png',
+            type: String,
+            trim: true
+        },
+        originalname: {
+            default: 'avatar_default.png',
+            type: String,
+        }
     }
 });
+
+UserSchema.plugin(passportLocalMongoose);
 
 // User Model
 let User = module.exports = mongoose.model('User', UserSchema);

@@ -11,12 +11,15 @@ require('./configurators/validation')(app);
 require('./configurators/session')(app);
 require('./configurators/passport')(app);
 require('./configurators/csrf')(app);
+require('./configurators/cors')(app);
 
 const routes = require('./routes/index');
 const users = require('./routes/users');
+const imageFile = require('./routes/imageFile');
 
 // Set Static Folder
 app.use(express.static('public'));
+app.use(express.static('uploads'));
 
 // Cookie Parser
 app.use(cookieParser());
@@ -28,6 +31,7 @@ app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
+    res.locals.avatar = req.flash('avatar');
     res.locals.isAuthenticated = req.isAuthenticated();
     res.locals.user = req.user || null;
     next();
@@ -35,6 +39,7 @@ app.use((req, res, next) => {
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/', imageFile);
 
 // Set Port
 app.set('port', (process.env.PORT || 3000));

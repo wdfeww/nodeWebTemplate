@@ -86,3 +86,38 @@ footer{
   margin-top:40px;
 }
 
+.img-avatar{
+  width: 28px;
+  height: 28px;
+}
+
+.div-edit-profile{
+  margin-top: 20px;
+}
+
+/*button{*/
+  /*margin-top: 20px;*/
+/*}*/
+
+/*input[type="file"] {*/
+  /*margin-bottom: 15px;*/
+/*}*/
+
+/*input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}*/
+
