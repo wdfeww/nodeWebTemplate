@@ -12,6 +12,16 @@ module.exports.storageUploads = multer.diskStorage({
     }
 });
 
+// Profile Pictures
+module.exports.avatarUploads = multer.diskStorage({
+    destination: (req, file, callback) => {
+        callback(null, 'uploads/avatars/');
+    },
+    filename: (req, file, callback) => {
+        callback(null, req.user.username+'_avatar');
+    }
+});
+
 // Clear Folder Uploads after Server Restart
 module.exports.cleanFolder = (folderPath) => {
     del.sync([`${folderPath}/**`, `!${folderPath}`]);

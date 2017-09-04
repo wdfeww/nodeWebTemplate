@@ -10,7 +10,7 @@ const folderPath = 'uploads';
 const multerConf = require('../configurators/multer');
 
 // Cleaning uploads folder after server restart
-multerConf.cleanFolder(folderPath);
+// multerConf.cleanFolder(folderPath);
 
 let upload = multer({
     storage: multerConf.storageUploads,

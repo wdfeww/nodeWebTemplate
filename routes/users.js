@@ -10,7 +10,7 @@ let User = require('../models/User');
 const multerConf = require('../configurators/multer');
 
 let upload = multer({
-    storage: multerConf.storageUploads,
+    storage: multerConf.avatarUploads,
     fileFilter: multerConf.imageFilter
 });
 
@@ -152,13 +152,13 @@ router.post('/edit', (req, res) => {
 // Change Avatar
 router.post('/edit/avatar', upload.any(), (req, res) => {
     let path = req.files[0].path;
-    let imageName = req.files[0].originalname;
+    let imageName = req.files[0].filename;
 
     console.log('path: '+path);
     console.log('imageName: '+imageName);
 
     let user = req.user;
-    user.avatar.path = '\\'+imageName;
+    user.avatar.path = '\\avatars\\'+imageName;
     user.avatar.originalname = imageName;
 
     User.createUser(user, (err, user) => {
