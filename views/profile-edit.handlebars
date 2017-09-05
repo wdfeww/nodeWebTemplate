@@ -10,7 +10,6 @@
     <h3 class="">Change Password</h3>
     <form action="/users/edit" method="post">
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
-
         <div class="form-group">
             <label for="username">Old Password</label>
             <input name="oldPassword" type="password" class="form-control" placeholder="Old Password">
@@ -28,13 +27,11 @@
 </div>
 <div class="div-edit-profile container">
     <h3 class="">Change Avatar Picture</h3>
-    <form action="/users/edit/avatar" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="_csrf" value="{{csrfToken}}">
-        <!--<label for="avatar">Change Avatar</label>-->
-        <!--<label for="file-upload" class="custom-file-upload btn btn-default">-->
-            <!--<i class="fa fa-cloud-upload"></i> Choose Image-->
-        <!--</label>-->
-        <input id="image-upload" type="file" name="file-upload" >
+    <form action="/users/edit/avatar?_csrf={{csrfToken}}" method="POST" enctype="multipart/form-data">
+        <label for="image-upload" class="custom-file-upload btn btn-default">
+            <i class="fa fa-cloud-upload"></i> Choose Image
+        </label>
+        <input id="image-upload" type="file" name="image-upload" >
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
 </div>

@@ -10,10 +10,14 @@ let User = require('../models/User');
 const multerConf = require('../configurators/multer');
 
 let upload = multer({
+    // destination: 'uploads/avatars/',
     storage: multerConf.avatarUploads,
     fileFilter: multerConf.imageFilter
 });
 
+// const app = express();
+
+// app.use(upload.single('demo'));
 
 // Login Page
 router.get('/login', (req, res) => {
@@ -149,6 +153,10 @@ router.post('/edit', (req, res) => {
 
 // Change Avatar
 router.post('/edit/avatar', upload.any(), (req, res) => {
+    // res.render('upload', {
+    //     csrf: req.csrfToken()
+    // });
+    // res.end();
     if (req.files[0]) {
         let path = req.files[0].path;
         let imageName = req.files[0].filename;
