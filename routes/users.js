@@ -11,7 +11,10 @@ const multerConf = require('../configurators/multer');
 
 let upload = multer({
     storage: multerConf.avatarUploads,
-    fileFilter: multerConf.imageFilter
+    fileFilter: multerConf.imageFilter,
+    onFileUploadComplete: (file) => {
+        console.log('-- File: '+file.originalname+' upload was completed. --');
+    }
 });
 
 // Login Page
@@ -148,10 +151,6 @@ router.post('/edit', (req, res) => {
 
 // Change Avatar
 router.post('/edit/avatar', upload.any(), (req, res) => {
-    // res.render('upload', {
-    //     csrf: req.csrfToken()
-    // });
-    // res.end();
     if (req.files[0]) {
         let path = req.files[0].path;
         let imageName = req.files[0].filename;

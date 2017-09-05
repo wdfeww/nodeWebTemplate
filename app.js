@@ -15,6 +15,7 @@ require('./configurators/cors')(app);
 
 const routes = require('./routes/index');
 const users = require('./routes/users');
+const articles = require('./routes/articles');
 const imageFile = require('./routes/imageFile');
 
 // Set Static Folder
@@ -39,6 +40,7 @@ app.use((req, res, next) => {
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/articles', articles);
 app.use('/', imageFile);
 
 // Set Port

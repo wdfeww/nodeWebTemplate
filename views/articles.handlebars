@@ -1,0 +1,14 @@
+{{#if article}}
+    {{#each article}}
+        <div>
+            <h1>{{h1}}</h1>
+            {{#each article}}
+                <h2>{{h2}}</h2>
+                <p>{{body}}</p>
+            {{/each}}
+            {{#each picture}}
+                <img src="{{path}}" class="img-article">
+            {{/each}}
+        </div>
+    {{/each}}
+{{/if}}

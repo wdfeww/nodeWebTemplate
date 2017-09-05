@@ -5,8 +5,10 @@ module.exports = app => {
     const db = mongoose.connection;
 
     let usersJson = require('../imports/import-users.json');
+    let articlesJson = require('../imports/import-articles.json');
     let avatarPath = '../Haliganda/imports/files/avatar_default.png';
     let User = require('../models/User');
+    let Article = require('../models/Article');
     let Image = require('../models/Image');
 
     mongoose.Promise = global.Promise;
@@ -27,21 +29,26 @@ module.exports = app => {
             if (err) throw err;
             else console.log('Collection users was removed...');
 
+            // Filling database with some users...
             db.collection('users').insert(usersJson, (err, doc) => {
                 if (err) console.log(err.message);
                 else console.log('Added collection users with default admin...');
             });
-
-            // User.findOne({username: 'admin'}, (err, admin) => {
-            //     if (err) throw err;
-            //     admin.avatar_img.data = fs.readFileSync(avatarPath);
-            //     admin.avatar_img.contentType = 'image/png';
-            //     admin.save((err, admin) => {
-            //         if (err) throw err;
-            //     });
-            // });
-
         });
+
+        Article.remove((err) => {
+            if (err) throw err;
+            else console.log('Collection articles was removed...');
+
+            // Filling database with some articles
+            db.collection('articles').insert(articlesJson, (err, doc) => {
+                if (err) console.log(err.message);
+                else console.log('Added collection articles with some articles...');
+            });
+        });
+
+
+        // Clearing collection with files...
         Image.remove((err) => {
             if (err) throw err;
             else console.log('Collection files was removed...')

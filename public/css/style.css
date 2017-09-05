@@ -121,3 +121,10 @@ input[type="file"] {
   cursor: pointer;
 }
 
+/* Articles */
+.img-article{
+  margin: 0 auto;
+  width: 300px;
+  height: 300px;
+}
+
