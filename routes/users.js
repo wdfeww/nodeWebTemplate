@@ -10,14 +10,9 @@ let User = require('../models/User');
 const multerConf = require('../configurators/multer');
 
 let upload = multer({
-    // destination: 'uploads/avatars/',
     storage: multerConf.avatarUploads,
     fileFilter: multerConf.imageFilter
 });
-
-// const app = express();
-
-// app.use(upload.single('demo'));
 
 // Login Page
 router.get('/login', (req, res) => {
