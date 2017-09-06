@@ -25,6 +25,7 @@ module.exports = app => {
 
     // Inserting default admin into Database
     mongoose.connection.on('open', () => {
+        console.log('<<< Updating Database... >>>');
         User.remove((err) => {
             if (err) throw err;
             else console.log('Collection users was removed...');

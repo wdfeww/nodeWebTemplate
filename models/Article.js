@@ -2,7 +2,10 @@ let mongoose = require('mongoose');
 
 // Article Schema
 let ArticleSchema = mongoose.Schema({
-
+    // createDate: {
+    //     type: Date,
+    //     default: new Date()
+    // },
     h1: {
         type: String,
         required: true,
@@ -10,8 +13,7 @@ let ArticleSchema = mongoose.Schema({
     },
     article: [{
         h2: {
-            type: String,
-            trim: true
+            type: String
         },
         body: {
             type: String
