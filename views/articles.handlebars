@@ -1,13 +1,21 @@
 {{#if article}}
     {{#each article}}
         <div>
-            <h1>{{h1}}</h1>
-            {{#each article}}
-                <h2>{{h2}}</h2>
-                <p>{{body}}</p>
-            {{/each}}
-            {{#each picture}}
-                <img src="{{path}}" class="img-article">
+            <h1>{{title}}</h1>
+            <p>{{mainText}}</p>
+            {{#each element}}
+                {{#ifeq name "img"}}
+                    <img src="{{path}}" class="img-article">
+                {{/ifeq}}
+                {{#ifeq name "p"}}
+                    <p>{{text}}</p>
+                {{/ifeq}}
+                {{#ifeq name "h2"}}
+                    <h2>{{text}}</h2>
+                {{/ifeq}}
+                {{#ifeq name "h3"}}
+                    <h3>{{text}}</h3>
+                {{/ifeq}}
             {{/each}}
         </div>
     {{/each}}

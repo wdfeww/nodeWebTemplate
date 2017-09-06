@@ -31,8 +31,6 @@ let ArticleSchema = mongoose.Schema({
     // }]
     //add date, unique article name???
 
-
-
     title:{
         type: String,
         required: true
@@ -45,18 +43,16 @@ let ArticleSchema = mongoose.Schema({
         type: Date,
         required: true
     },
-    detailOfArticle:[{
-        elementName:{
+    element:[{
+        name: {
             type: String,
+            enum: ['p', 'img', 'span', 'h2', 'h3'],
             required: true
         },
-        path:{
+        path: {
             type: String
         },
-        name:{
-            type: String
-        },
-        text:{
+        text: {
             type: String
         }
     }]
