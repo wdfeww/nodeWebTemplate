@@ -1,7 +1,98 @@
 <form action="">
-    <label for="main-header">Hlavný nadpis</label>
-    <label for="sub-header">Podnadpis</label>
-    <input type="text" name="sub-header">
+    <h3>Hlavná stránka</h3>
+    <label for="title">Nadpis</label>
+    <br>
+    <input type="text" name="title">
+    <br>
+    <label for="mainText">Popis</label>
+    <br>
+    <textarea name="mainText"></textarea>
+    <br>
+    <input type="hidden" name="dateOfCreate">
+    <h2>Detail:</h2>
+    <br>
+    <div id="element" name="element" contenteditable="true">
 
+    </div>
+    <br>
+    <select>
+        <option value="add" selected="selected">Pridať</option>
+        <option value="subtitle">Podnadpis</option>
+        <option value="text">Text</option>
+        <option value="image">Obrázok</option>
+    </select>
+    <br>
+    <br>
     <button type="submit">Add Article</button>
+
 </form>
+
+<script>
+    var today = new Date();
+    var dd = today.getDate();
+    if(dd<10)dd="0"+dd;
+    var mm = today.getMonth()+1;
+    if(mm<10)mm="0"+mm;
+    var yyyy = today.getFullYear();
+    var date = dd+"-"+mm+"-"+yyyy;
+    $("input[name='dateOfCreate']").val(date);
+
+    function getId(){
+
+    }
+
+    $( "select" )
+            .change(function () {
+                $( "select option:selected" ).each(function() {
+                    switch(this.value){
+                        case "add":
+
+                            break;
+                        case "subtitle":
+
+                            $("select").val("add");
+                            $('<label/>', {
+                                for: 'subtitle'
+                            }).text("Podnadpis").appendTo('#element');
+                            $('<br/>').appendTo('#element');
+                            $('<input/>',{
+                                type: "text",
+                                name: "subtitle"
+                            }).appendTo('#element');
+                            $('<br/>').appendTo('#element');
+
+                            break;
+                        case "text":
+                            $("select").val("add");
+                            $('<label/>', {
+                                for: 'text'
+                            }).text("Popis").appendTo('#element');
+                            $('<br/>').appendTo('#element');
+                            $('<textarea/>',{
+                                name: "text"
+                            }).appendTo('#element');
+                            $('<br/>').appendTo('#element');
+                            break;
+                        case "image":
+                            $("select").val("add");
+                            $('<label/>', {
+                                for: 'image'
+                            }).text("Image").appendTo('#element');
+                            $('<br/>').appendTo('#element');
+                            $('<input/>',{
+                                id:"image-upload",
+                                type:"file",
+                                name:"image-upload"
+                            }).appendTo('#element');
+                            $('<br/>').appendTo('#element');
+                            break;
+
+                    }
+                });
+            })
+            .change();
+    $('button').on('click',function () {
+        var formData = JSON.stringify($("form").serializeArray());
+        alert(formData);
+    });
+</script>
