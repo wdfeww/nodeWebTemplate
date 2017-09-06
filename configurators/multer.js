@@ -30,7 +30,7 @@ module.exports.cleanFolder = (folderPath) => {
 
 // Images only Filter
 module.exports.imageFilter = (req, file, callback) => {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$/)) {
         // return callback(new Error('Only image files are allowed'), false);
         return callback(console.log('Only .jpg/.jpeg/.png/.gif files are allowed'), false);
     }

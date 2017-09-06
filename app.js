@@ -44,7 +44,7 @@ app.use('/articles', articles);
 app.use('/', imageFile);
 
 // Set Port
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 80));
 
 app.listen(app.get('port'), () => {
     console.log('Server started on port '+app.get('port'));

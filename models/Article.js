@@ -6,30 +6,60 @@ let ArticleSchema = mongoose.Schema({
     //     type: Date,
     //     default: new Date()
     // },
-    h1: {
+    // h1: {
+    //     type: String,
+    //     required: true,
+    //     trim: true
+    // },
+    // article: [{
+    //     h2: {
+    //         type: String
+    //     },
+    //     body: {
+    //         type: String
+    //     }
+    // }],
+    // picture: [{
+    //     path: {
+    //         type: String,
+    //         trim: true
+    //     },
+    //     originalname: {
+    //         type: String,
+    //         trim: true
+    //     }
+    // }]
+    //add date, unique article name???
+
+
+
+    title:{
         type: String,
-        required: true,
-        trim: true
+        required: true
     },
-    article: [{
-        h2: {
+    mainText:{
+      type: String,
+      required: true
+    },
+    dateOfCreate:{
+        type: Date,
+        required: true
+    },
+    detailOfArticle:[{
+        elementName:{
+            type: String,
+            required: true
+        },
+        path:{
             type: String
         },
-        body: {
+        name:{
             type: String
-        }
-    }],
-    picture: [{
-        path: {
-            type: String,
-            trim: true
         },
-        originalname: {
-            type: String,
-            trim: true
+        text:{
+            type: String
         }
     }]
-    //add date, unique article name???
 });
 
 // Article Model
