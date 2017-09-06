@@ -4,18 +4,18 @@
             <h1>{{title}}</h1>
             <p>{{mainText}}</p>
             {{#each element}}
-                {{#ifeq name "img"}}
+                {{#compare name "img"}}
                     <img src="{{path}}" class="img-article">
-                {{/ifeq}}
-                {{#ifeq name "p"}}
+                {{/compare}}
+                {{#compare name "p"}}
                     <p>{{text}}</p>
-                {{/ifeq}}
-                {{#ifeq name "h2"}}
+                {{/compare}}
+                {{#compare name "h2"}}
                     <h2>{{text}}</h2>
-                {{/ifeq}}
-                {{#ifeq name "h3"}}
+                {{/compare}}
+                {{#compare name "h3"}}
                     <h3>{{text}}</h3>
-                {{/ifeq}}
+                {{/compare}}
             {{/each}}
         </div>
     {{/each}}

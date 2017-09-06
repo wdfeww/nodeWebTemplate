@@ -3,21 +3,34 @@ let router = express.Router();
 
 let Article = require('../models/Article');
 
-
 // All Articles
 router.get('/', (req, res) => {
     Article.getAllArticles((err, articles) => {
+        if (err) throw err;
+        res.render('all-articles', {article: articles});
+    });
+});
+
+// Article
+router.get('/title', (req, res) => {
+    Article.getAllArticles((err, articles) => {
        if (err) throw err;
-       res.render('articles', {article: articles});
+       res.render('article', {article: articles});
     });
 });
 
 // Add Article
-router.get('/add', (req, res) => {
-    res.render('add-article');
+router.get('/new', (req, res) => {
+    res.render('new-article');
 });
 
 // Post New Article
-
+router.post('/new', (req, res) => {
+    console.log(req.body);
+    Article.getAllArticles((err, articles) => {
+        if (err) throw err;
+        res.render('all-articles', {article: articles});
+    });
+});
 
 module.exports = router;

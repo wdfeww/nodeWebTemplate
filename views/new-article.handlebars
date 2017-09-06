@@ -1,4 +1,6 @@
-<form action="">
+<form action="/articles/new" method="post">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
     <h3>Hlavná stránka</h3>
     <label for="title">Nadpis</label>
     <br>
@@ -52,12 +54,12 @@
 
                             $("select").val("add");
                             $('<label/>', {
-                                for: 'subtitle'
+                                for: 'h2'
                             }).text("Podnadpis").appendTo('#element');
                             $('<br/>').appendTo('#element');
                             $('<input/>',{
                                 type: "text",
-                                name: "subtitle"
+                                name: "h2"
                             }).appendTo('#element');
                             $('<br/>').appendTo('#element');
 
@@ -65,24 +67,25 @@
                         case "text":
                             $("select").val("add");
                             $('<label/>', {
-                                for: 'text'
+                                for: 'p'
                             }).text("Popis").appendTo('#element');
                             $('<br/>').appendTo('#element');
                             $('<textarea/>',{
-                                name: "text"
+                                name: "p"
                             }).appendTo('#element');
                             $('<br/>').appendTo('#element');
                             break;
                         case "image":
                             $("select").val("add");
                             $('<label/>', {
-                                for: 'image'
-                            }).text("Image").appendTo('#element');
+                                for: 'img',
+                                class: 'custom-file-upload btn btn-default'
+                            }).text("Choose Image").appendTo('#element');
                             $('<br/>').appendTo('#element');
                             $('<input/>',{
                                 id:"image-upload",
                                 type:"file",
-                                name:"image-upload"
+                                name:"img"
                             }).appendTo('#element');
                             $('<br/>').appendTo('#element');
                             break;

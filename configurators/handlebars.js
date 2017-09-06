@@ -7,9 +7,9 @@ module.exports = app => {
         partialsDir: 'views/partials',
         defaultLayout: 'layout',
         helpers: {
-            ifeq: (lvalue, operator, rvalue, options) => {
+            compare: function (lvalue, operator, rvalue, options) {
 
-                var operators, result;
+                let operators, result;
 
                 if (arguments.length < 3) {
                     throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
