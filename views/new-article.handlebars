@@ -1,5 +1,4 @@
-<form action="/articles/new" method="post" enctype='application/json'>
-    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+<form action="/articles/new?_csrf={{csrfToken}}" method="post" enctype='multipart/form-data'>
     <h3>Hlavná stránka</h3>
     <label for="title">Nadpis</label>
     <br>
@@ -23,6 +22,12 @@
         <option value="image">Obrázok</option>
     </select>
     <br>
+
+    <label for="image-upload" class="custom-file-upload btn btn-default">
+        Choose Image
+    </label>
+    <input id="image-upload" type="file" name="image-upload" >
+
     <br>
     <button type="submit">Add Article</button>
 
@@ -98,7 +103,7 @@
 
         for(var j = 0; j < g; j++){
           var element =  $("#element").children().eq(j);
-          if(element.attr('name') == "h2" || element.attr('name') == "p" ){
+          if(element.attr('name') === "h2" || element.attr('name') === "p" ){
              var newElement = {
                  name: null,
                  path: null,

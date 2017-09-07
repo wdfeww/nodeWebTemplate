@@ -4,17 +4,18 @@ let passport = require('passport');
 let LocalStrategy = require('passport-local').Strategy;
 let session = require('express-session');
 let multer = require('multer');
+let multerConf = require('../configurators/multer');
 
 let User = require('../models/User');
 
-const multerConf = require('../configurators/multer');
-
+// Multer configuration
+multerConf.cleanFolder('uploads/avatars');
 let upload = multer({
     storage: multerConf.avatarUploads,
-    fileFilter: multerConf.imageFilter,
-    onFileUploadComplete: (file) => {
-        console.log('-- File: '+file.originalname+' upload was completed. --');
-    }
+    fileFilter: multerConf.imageFilter
+    // onFileUploadComplete: (file) => {
+    //     console.log('-- File: '+file.originalname+' upload was completed. --');
+    // }
 });
 
 // Login Page

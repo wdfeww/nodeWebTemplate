@@ -3,9 +3,9 @@ const multer = require('multer');
 const del = require('del');
 
 // Uploads Storage
-module.exports.storageUploads = multer.diskStorage({
+module.exports.imagesUploads = multer.diskStorage({
     destination: (req, file, callback) => {
-        callback(null, 'uploads/');
+        callback(null, 'uploads/images/');
     },
     filename: (req, file, callback) => {
         callback(null, file.originalname);

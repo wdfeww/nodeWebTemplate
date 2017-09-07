@@ -1,20 +1,20 @@
 {{#if article}}
     {{#each article}}
         <div>
-            <h1>{{title}}</h1>
-            <p>{{mainText}}</p>
+            <h1>{{{title}}}</h1>
+            <p>{{{mainText}}}</p>
             {{#each element}}
                 {{#compare name "img"}}
-                    <img src="{{path}}" class="img-article">
+                    <img src="{{{path}}}" class="img-article">
                 {{/compare}}
                 {{#compare name "p"}}
-                    <p>{{text}}</p>
+                    <p>{{{text}}}</p>
                 {{/compare}}
                 {{#compare name "h2"}}
-                    <h2>{{text}}</h2>
+                    <h2>{{{text}}}</h2>
                 {{/compare}}
                 {{#compare name "h3"}}
-                    <h3>{{text}}</h3>
+                    <h3>{{{text}}}</h3>
                 {{/compare}}
             {{/each}}
         </div>
