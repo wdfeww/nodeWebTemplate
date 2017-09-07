@@ -27,6 +27,7 @@ router.get('/new', (req, res) => {
 // Post New Article
 router.post('/new', (req, res) => {
     console.log(req.body);
+    var element = JSON.parse(req.body.element);
     Article.getAllArticles((err, articles) => {
         if (err) throw err;
         res.render('all-articles', {article: articles});

@@ -1,6 +1,5 @@
-<form action="/articles/new" method="post">
+<form action="/articles/new" method="post" enctype='application/json'>
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
-
     <h3>Hlavná stránka</h3>
     <label for="title">Nadpis</label>
     <br>
@@ -13,8 +12,8 @@
     <input type="hidden" name="dateOfCreate">
     <h2>Detail:</h2>
     <br>
-    <div id="element" name="element" contenteditable="true">
-
+    <div id="element">
+        <input type="hidden" name="element">
     </div>
     <br>
     <select>
@@ -39,8 +38,10 @@
     var date = dd+"-"+mm+"-"+yyyy;
     $("input[name='dateOfCreate']").val(date);
 
-    function getId(){
-
+    var getCount = function(){
+    var  m =  ($("#element > input").length);
+    var  n =  ($("#element > textarea").length);
+        return m + n;
     }
 
     $( "select" )
@@ -51,43 +52,40 @@
 
                             break;
                         case "subtitle":
-
                             $("select").val("add");
                             $('<label/>', {
-                                for: 'h2'
+                                for: 'subtitle'
                             }).text("Podnadpis").appendTo('#element');
-                            $('<br/>').appendTo('#element');
+
                             $('<input/>',{
                                 type: "text",
-                                name: "h2"
+                                name: 'h2',
+                                id:getCount()
                             }).appendTo('#element');
-                            $('<br/>').appendTo('#element');
-
                             break;
                         case "text":
                             $("select").val("add");
                             $('<label/>', {
-                                for: 'p'
+                                for: 'text'
                             }).text("Popis").appendTo('#element');
-                            $('<br/>').appendTo('#element');
+
                             $('<textarea/>',{
-                                name: "p"
+                                name: 'p',
+                                id:getCount()
                             }).appendTo('#element');
-                            $('<br/>').appendTo('#element');
                             break;
                         case "image":
                             $("select").val("add");
                             $('<label/>', {
-                                for: 'img',
-                                class: 'custom-file-upload btn btn-default'
-                            }).text("Choose Image").appendTo('#element');
-                            $('<br/>').appendTo('#element');
+                                for: 'image'
+                            }).text("Image").appendTo('#element');
+
                             $('<input/>',{
                                 id:"image-upload",
                                 type:"file",
-                                name:"img"
+                                name:"img",
+                                id:getCount()
                             }).appendTo('#element');
-                            $('<br/>').appendTo('#element');
                             break;
 
                     }
@@ -95,7 +93,29 @@
             })
             .change();
     $('button').on('click',function () {
-        var formData = JSON.stringify($("form").serializeArray());
-        alert(formData);
+        var elementToSend = [];
+        var g = $("#element > *").length;
+
+        for(var j = 0; j < g; j++){
+          var element =  $("#element").children().eq(j);
+          if(element.attr('name') == "h2" || element.attr('name') == "p" ){
+             var newElement = {
+                 name: null,
+                 path: null,
+                 text: null
+             };
+             newElement.name = element.attr('name')+"";
+             newElement.text = element.val()+"";
+             elementToSend.push(newElement);
+          }
+
+        }
+        for(var j = 0; j < g; j++){
+            var element =  $("#element").children().eq(j);
+            if(element.attr('name') == "h2" || element.attr('name') == "p" ){
+                element.remove();
+            }
+        }
+        $("input[name='element']").val(JSON.stringify(elementToSend));
     });
 </script>
