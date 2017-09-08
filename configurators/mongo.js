@@ -42,10 +42,10 @@ module.exports = app => {
             else console.log('Collection articles was removed...');
 
             // Filling database with some articles
-            db.collection('articles').insert(articlesJson, (err, doc) => {
-                if (err) console.log(err.message);
-                else console.log('Added collection articles with some articles...');
-            });
+            // db.collection('articles').insert(articlesJson, (err, doc) => {
+            //     if (err) console.log(err.message);
+            //     else console.log('Added collection articles with some articles...');
+            // });
         });
 
 

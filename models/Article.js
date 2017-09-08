@@ -31,11 +31,11 @@ let ArticleSchema = mongoose.Schema({
     // }]
     //add date, unique article name???
 
-    title:{
+    title: {
         type: String,
         required: true
     },
-    mainText:{
+    body: {
       type: String,
       required: true
     },
@@ -43,16 +43,11 @@ let ArticleSchema = mongoose.Schema({
         type: Date,
         required: true
     },
-    element:[{
-        name: {
-            type: String,
-            enum: ['p', 'img', 'span', 'h2', 'h3'],
-            required: true
-        },
+    images: [{
         path: {
             type: String
         },
-        text: {
+        originalName: {
             type: String
         }
     }]
@@ -62,7 +57,7 @@ let ArticleSchema = mongoose.Schema({
 let Article = module.exports = mongoose.model('Article', ArticleSchema);
 
 module.exports.createArticle = (newArticle, callback) => {
-    Article.create(callback);
+    Article.create(newArticle, callback);
 };
 
 module.exports.getAllArticles = (callback) => {
