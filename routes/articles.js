@@ -33,24 +33,62 @@ router.get('/new', (req, res) => {
     res.render('new-article');
 });
 
-// Add Article
-router.get('/new/bs', (req, res) => {
-    res.render('new-article-bs-test');
-});
-
 // Post New Article
 router.post('/new', upload.any(), (req, res) => {
-    console.log(req.body);
-    var element = JSON.parse(req.body.element);
-    // console.log(element[0].name);
-    // console.log(element[0].name);
-    if (req.files[0])
-        console.log(req.files[0].path);
+    // if (req.files[0]){
+    //
+    //     console.log(req.files[0].path);
+    //     console.log(req.files[1].path);
+    // }
+    // console.log(req.body);
 
-    Article.getAllArticles((err, articles) => {
-        if (err) throw err;
-        res.render('all-articles', {article: articles});
+
+
+    let newArticle = new Article({
+        title: req.body.title,
+        body: req.body.articleBody,
+        dateOfCreate: req.body.dateOfCreate,
+        images: []
     });
+
+    if (req.files[0]) {
+        let i = 0;
+        let fileName = ' ';
+        while (req.files[i]) {
+            let fileName = req.files[i].filename;
+            let image = {
+                path: '\\images\\'+fileName,
+                originalName: fileName
+            };
+            newArticle.images.push(image);
+            i++;
+        }
+        console.log('pridavam image');
+    }
+
+    let newPromise = (newArticle) => {
+        return new Promise((resolve, reject) => {
+            if (newArticle)
+                resolve();
+            else
+                reject();
+        });
+    };
+
+    newPromise(newArticle).then(() => {
+        console.log('vytvaram article');
+        console.log(newArticle);
+        Article.createArticle(newArticle, (err, article) => {
+            if (err) throw err;
+            console.log('article: '+article);
+            Article.getAllArticles((err, articles) => {
+                if (err) throw err;
+                res.render('all-articles', {article: articles});
+            });
+        });
+    });
+
+
 });
 
 module.exports = router;
