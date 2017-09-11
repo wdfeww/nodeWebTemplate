@@ -1,11 +1,23 @@
 {{#if article}}
     {{#each article}}
+
         <div>
             <h1>{{{title}}}</h1>
             <div>{{{body}}}</div>
         </div>
+
         {{#each images}}
-            <img src="{{path}}" >
+            <div class="col-lg-3">
+                <a class="lightbox thumbnail" href="{{path}}" data-littlelightbox-group="Gallery" title="ENTER_NAME_OF_PICTURE">
+                <img class="Gallery" src="{{path}}" alt="ENTER_NAME_OF_PICTURE" /></a>
+            </div>
         {{/each}}
+
     {{/each}}
 {{/if}}
+
+<script>
+    $(document).ready(() => {
+        $('.lightbox').littleLightBox();
+    });
+</script>
