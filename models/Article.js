@@ -2,38 +2,20 @@ let mongoose = require('mongoose');
 
 // Article Schema
 let ArticleSchema = mongoose.Schema({
-    // createDate: {
-    //     type: Date,
-    //     default: new Date()
-    // },
-    // h1: {
-    //     type: String,
-    //     required: true,
-    //     trim: true
-    // },
-    // article: [{
-    //     h2: {
-    //         type: String
-    //     },
-    //     body: {
-    //         type: String
-    //     }
-    // }],
-    // picture: [{
-    //     path: {
-    //         type: String,
-    //         trim: true
-    //     },
-    //     originalname: {
-    //         type: String,
-    //         trim: true
-    //     }
-    // }]
-    //add date, unique article name???
-
     title: {
         type: String,
         required: true
+    },
+    titleImage: {
+        path: {
+            type: String
+        },
+        originalName: {
+            type: String
+        },
+        alt: {
+            type: String
+        }
     },
     body: {
       type: String,
@@ -41,13 +23,16 @@ let ArticleSchema = mongoose.Schema({
     },
     dateOfCreate:{
         type: Date,
-        required: true
+        default: Date.now
     },
     images: [{
         path: {
             type: String
         },
         originalName: {
+            type: String
+        },
+        alt: {
             type: String
         }
     }]

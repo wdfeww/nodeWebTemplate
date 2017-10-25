@@ -2,8 +2,12 @@
 <div class="container">
 
     <form action="/articles/new?_csrf={{csrfToken}}" method="post" enctype='multipart/form-data'>
-        <h3 class="">Article Header</h3>
+        <h3 class="">Názov článku</h3>
         <input type="text" name="title">
+        <h3 class="">Titulný obrázok</h3>
+        <input id="title-img" type="file" name="imageUpload" class="input-file">
+        <input id="title-img-alt" type="text" name="imgAlt" placeholder="Popis obrazka">
+        <input id="title-img-state" type="hidden" name="isTitleImg" value="false">
         <h3 class="">Add New Article</h3>
         <input type="hidden" name="articleBody">
         <h2>Article Body</h2>
@@ -12,16 +16,16 @@
             <textarea id="some-textarea" class="textarea" placeholder="Enter text ..." style="width: 100%; height: 200px; font-size: 14px; line-height: 18px;"></textarea>
         </div>
         <div id="">
-            <h2>Add Images Gallery</h2>
+            <h2>Pridat Galeriu Obrázkov</h2>
             <hr style="border-color: blue"/>
             <!--<label for="image-upload" class="custom-file-upload btn btn-default">-->
                 <!--Choose Image-->
             <!--</label>-->
-            <input id="image-upload" type="file" name="image-upload" class="input-file">
+            <input id="image-upload" type="file" name="imageUpload" class="input-file">
+            <input type="text" name="imgAlt" placeholder="Popis obrazka">
             <br>
             <button type="button" id="add-input-file">+ More Images</button>
         </div>
-        <input type="hidden" name="dateOfCreate">
         <br>
         <br>
         <button type="submit">Add Article</button>
@@ -29,27 +33,39 @@
 </div>
 
 <script>
-    var today = new Date();
-    var dd = today.getDate();
-    if(dd<10)dd="0"+dd;
-    var mm = today.getMonth()+1;
-    if(mm<10)mm="0"+mm;
-    var yyyy = today.getFullYear();
-    var date = dd+"-"+mm+"-"+yyyy;
-    $("input[name='dateOfCreate']").val(date);
+//    var today = new Date();
+//    var dd = today.getDate();
+//    if(dd<10)dd="0"+dd;
+//    var mm = today.getMonth()+1;
+//    if(mm<10)mm="0"+mm;
+//    var yyyy = today.getFullYear();
+//    var date = dd+"-"+mm+"-"+yyyy;
+//    $("input[name='dateOfCreate']").val(date);
+
+
+
 
     $("#add-input-file").on('click', () => {
         var addInputFileBtn = $("#add-input-file");
         $("<input/>",{
-            id: "image-upload",
             type: "file",
             name: "image-upload",
             class: "input-file"
         }).insertBefore(addInputFileBtn);
+        $("</br>").insertBefore(addInputFileBtn);
 
     });
     $("button[type='submit']").on('click', () => {
-        var articleTextarea = $('#some-textarea').val();
+        let titleImg = $('#title-img').val();
+        let titleImgState = $('#title-img-state');
+
+        if (titleImg !== '' ) {
+            titleImgState.val('true');
+        }
+        else{
+            $("#title-img-alt").remove();
+        }
+        let articleTextarea = $('#some-textarea').val();
         $("input[name='articleBody']").val(articleTextarea);
     });
 

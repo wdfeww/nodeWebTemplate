@@ -35,30 +35,35 @@ router.get('/new', (req, res) => {
 
 // Post New Article
 router.post('/new', upload.any(), (req, res) => {
-    // if (req.files[0]){
-    //
-    //     console.log(req.files[0].path);
-    //     console.log(req.files[1].path);
-    // }
-    // console.log(req.body);
 
-
+    console.log('!!! '+req.body.isTitleImg);
+    console.log('!!! '+req.body.imgAlt[0]);
+    // console.log('!!! '+req.body.imgAlt[2]);
 
     let newArticle = new Article({
         title: req.body.title,
         body: req.body.articleBody,
-        dateOfCreate: req.body.dateOfCreate,
+        // dateOfCreate: req.body.dateOfCreate,
         images: []
     });
 
     if (req.files[0]) {
         let i = 0;
-        let fileName = ' ';
+        console.log(req.body.imgAlt[0]);
+        console.log(req.body.imgAlt[1]);
+        if(req.body.isTitleImg === 'true') {
+            newArticle.titleImage.path = '\\images\\'+req.files[0].filename
+            newArticle.titleImage.originalName = req.files[0].filename
+            newArticle.titleImage.alt = req.body.imgAlt[0];
+            i = 1;
+        }
         while (req.files[i]) {
             let fileName = req.files[i].filename;
+            let imageAlt = req.body.imgAlt[i];
             let image = {
                 path: '\\images\\'+fileName,
-                originalName: fileName
+                originalName: fileName,
+                alt: imageAlt
             };
             newArticle.images.push(image);
             i++;
@@ -77,10 +82,10 @@ router.post('/new', upload.any(), (req, res) => {
 
     newPromise(newArticle).then(() => {
         console.log('vytvaram article');
-        console.log(newArticle);
+        // console.log(newArticle);
         Article.createArticle(newArticle, (err, article) => {
             if (err) throw err;
-            console.log('article: '+article);
+            console.log(article);
             Article.getAllArticles((err, articles) => {
                 if (err) throw err;
                 res.render('all-articles', {article: articles});
