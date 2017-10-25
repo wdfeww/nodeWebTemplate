@@ -52,8 +52,8 @@ router.post('/new', upload.any(), (req, res) => {
         console.log(req.body.imgAlt[0]);
         console.log(req.body.imgAlt[1]);
         if(req.body.isTitleImg === 'true') {
-            newArticle.titleImage.path = '\\images\\'+req.files[0].filename
-            newArticle.titleImage.originalName = req.files[0].filename
+            newArticle.titleImage.path = '\\images\\'+req.files[0].filename;
+            newArticle.titleImage.originalName = req.files[0].filename;
             newArticle.titleImage.alt = req.body.imgAlt[0];
             i = 1;
         }

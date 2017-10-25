@@ -52,6 +52,11 @@
             name: "image-upload",
             class: "input-file"
         }).insertBefore(addInputFileBtn);
+        $("<input/>",{
+            type: "text",
+            name: "imgAlt",
+            placeholder: "Popis obrazka"
+        }).insertBefore(addInputFileBtn);
         $("</br>").insertBefore(addInputFileBtn);
 
     });
