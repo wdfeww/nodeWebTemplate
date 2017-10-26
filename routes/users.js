@@ -163,7 +163,7 @@ router.post('/edit/avatar', upload.any(), (req, res) => {
         user.avatar.path = '\\avatars\\'+imageName;
         user.avatar.originalname = imageName;
 
-        User.createUser(user, (err, user) => {
+        User.editUser(user, (err, user) => {
             if (err) throw err;
             console.log(user);
             req.flash('success_msg', 'Your profile picture was changed.');

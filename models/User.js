@@ -47,6 +47,10 @@ module.exports.createUser = (newUser, callback) => {
     });
 };
 
+module.exports.editUser = (user, callback) => {
+    user.save(callback);
+};
+
 module.exports.isUsernameAlreadyUsed = (username, callback) => {
     User.find({username: username}, (err, users) => {
         if (err) callback(err, false);
